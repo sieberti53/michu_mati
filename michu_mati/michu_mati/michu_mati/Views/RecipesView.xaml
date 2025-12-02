@@ -1,0 +1,145 @@
+﻿<UserControl x:Class="michu_mati.Views.RecipesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:models="clr-namespace:michu_mati.Models"
+             FontSize="14">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Wyszukiwarka -->
+        <TextBox Grid.Row="0"
+                 Width="400"
+                 HorizontalAlignment="Left"
+                 Padding="10"
+                 FontSize="16"
+                 Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                 Watermark="Szukaj przepisu...">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="Background" Value="#f8f9fa"/>
+                    <Setter Property="BorderBrush" Value="#ced4da"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TextBox">
+                                <Border Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="8">
+                                    <Grid>
+                                        <ScrollViewer x:Name="PART_ContentHost"/>
+                                        <TextBlock Margin="12,0"
+                                                   Text="Szukaj przepisu..."
+                                                   Foreground="#6c757d"
+                                                   IsHitTestVisible="False"
+                                                   VerticalAlignment="Center">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Text, RelativeSource={RelativeSource TemplatedParent}}" Value="">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Grid>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+
+        <!-- Lista przepisów -->
+        <ListBox Grid.Row="2"
+                 ItemsSource="{Binding Recipes}"
+                 SelectedItem="{Binding SelectedRecipe}"
+                 Margin="0,15,0,15"
+                 BorderThickness="1"
+                 BorderBrush="#dee2e6"
+                 Background="#fdfdfd">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="models:Recipe">
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="{Binding Name}"
+                                       FontWeight="SemiBold"
+                                       FontSize="18"
+                                       Foreground="#2c3e50"/>
+                            <TextBlock Text="{Binding Ingredients.Count, StringFormat='{}Składników: {0}'}"
+                                       Foreground="#6c757d"
+                                       FontSize="13"/>
+                        </StackPanel>
+
+                        <Button Grid.Column="1"
+                                Content="Usuń"
+                                Command="{Binding DataContext.DeleteRecipeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                Background="#e74c3c"
+                                Foreground="White"
+                                Padding="12,6"
+                                Margin="10,0"
+                                Cursor="Hand"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <!-- Szczegóły wybranego przepisu + przyciski -->
+        <Border Grid.Row="3"
+                Background="#f8f9fa"
+                Padding="20"
+                CornerRadius="12"
+                BorderBrush="#dee2e6"
+                BorderThickness="1"
+                Visibility="{Binding SelectedRecipe, Converter={StaticResource NullToVisibilityConverter}}">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="{Binding SelectedRecipe.Name}"
+                               FontSize="22"
+                               FontWeight="Bold"
+                               Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Składniki:"
+                               FontWeight="SemiBold"
+                               Margin="0,10,0,5"/>
+                    <ItemsControl ItemsSource="{Binding SelectedRecipe.Ingredients}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" Margin="20,2,0,2"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <TextBlock Text="Sposób przygotowania:"
+                               FontWeight="SemiBold"
+                               Margin="0,15,0,5"/>
+                    <TextBlock Text="{Binding SelectedRecipe.Instructions}"
+                               TextWrapping="Wrap"
+                               MaxWidth="600"/>
+                </StackPanel>
+
+                <!-- Tu będzie później przycisk "Edytuj" – jak zrobisz okno dialogowe -->
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

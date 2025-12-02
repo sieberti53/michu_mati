@@ -1,0 +1,11 @@
+{
+  "Meals": {
+    "Monday": { "Id": "7e8f9c2a-1b3d-4e5f-9a1c-5d7e8f9a0b1c" },
+    "Tuesday": { "Id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890" },
+    "Wednesday": { "Id": "7e8f9c2a-1b3d-4e5f-9a1c-5d7e8f9a0b1c" },
+    "Thursday": null,
+    "Friday": { "Id": "12345678-90ab-cdef-1234-567890abcdef" },
+    "Saturday": null,
+    "Sunday": { "Id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890" }
+  }
+}

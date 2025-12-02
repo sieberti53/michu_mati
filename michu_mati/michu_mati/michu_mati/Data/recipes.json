@@ -1,0 +1,38 @@
+[
+  {
+    "Id": "7e8f9c2a-1b3d-4e5f-9a1c-5d7e8f9a0b1c",
+    "Name": "Spaghetti Carbonara",
+    "Instructions": "Podsmaż boczek, ugotuj makaron, wymieszaj z jajkami i parmezanem.",
+    "Ingredients": [
+      { "Name": "Makaron spaghetti", "Amount": "400 g" },
+      { "Name": "Boczek wędzony", "Amount": "200 g" },
+      { "Name": "Jajka", "Amount": "4 szt." },
+      { "Name": "Parmezan", "Amount": "100 g" },
+      { "Name": "Pieprz", "Amount": "do smaku" }
+    ]
+  },
+  {
+    "Id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "Name": "Schabowy z ziemniakami",
+    "Instructions": "Rozbij schab, obtocz w bułce, usmaż. Ziemniaki ugotuj.",
+    "Ingredients": [
+      { "Name": "Schab wieprzowy", "Amount": "4 kotlety" },
+      { "Name": "Jajko", "Amount": "1 szt." },
+      { "Name": "Bułka tarta", "Amount": "150 g" },
+      { "Name": "Ziemniaki", "Amount": "1 kg" },
+      { "Name": "Masło", "Amount": "50 g" }
+    ]
+  },
+  {
+    "Id": "12345678-90ab-cdef-1234-567890abcdef",
+    "Name": "Sałatka grecka",
+    "Instructions": "Pokrój warzywa, dodaj fetę i oliwę.",
+    "Ingredients": [
+      { "Name": "Pomidory", "Amount": "4 szt." },
+      { "Name": "Ogórek", "Amount": "1 szt." },
+      { "Name": "Feta", "Amount": "200 g" },
+      { "Name": "Oliwki czarne", "Amount": "100 g" },
+      { "Name": "Oliwa", "Amount": "4 łyżki" }
+    ]
+  }
+]

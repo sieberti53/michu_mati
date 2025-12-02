@@ -1,0 +1,120 @@
+﻿<UserControl x:Class="michu_mati.Views.PlannerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:models="clr-namespace:michu_mati.Models"
+             FontSize="14">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Wybór przepisu do przypisania -->
+        <ComboBox Width="400"
+                  HorizontalAlignment="Left"
+                  Margin="0,0,0,20"
+                  ItemsSource="{Binding RecipesVM.Recipes}"
+                  SelectedItem="{Binding SelectedRecipeToAssign, Mode=TwoWay}"
+                  DisplayMemberPath="Name"
+                  IsEditable="True">
+            <ComboBox.Style>
+                <Style TargetType="ComboBox">
+                    <Setter Property="Foreground" Value="#2c3e50"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedRecipeToAssign}" Value="{x:Null}">
+                            <Setter Property="ToolTip" Value="Wybierz przepis do przypisania"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ComboBox.Style>
+        </ComboBox>
+
+        <!-- Tygodniowy planer -->
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding Plan.Meals}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="1"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Margin="8"
+                            Padding="16"
+                            Background="#f8f9fa"
+                            CornerRadius="12"
+                            BorderBrush="#dee2e6"
+                            BorderThickness="1">
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Dzień tygodnia -->
+                            <TextBlock Grid.Column="0"
+                                       Text="{Binding Key, StringFormat='{}{0:dddd}'}"
+                                       FontWeight="Bold"
+                                       FontSize="18"
+                                       Foreground="#495057"
+                                       VerticalAlignment="Center"/>
+
+                            <!-- Nazwa przepisu lub placeholder -->
+                            <TextBlock Grid.Column="1"
+                                       Margin="20,0"
+                                       FontSize="18"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding Value.Name}"
+                                       Foreground="#2c3e50">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Text" Value="– brak dania –"/>
+                                        <Setter Property="Foreground" Value="#adb5bd"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Value}" Value="{x:Null}">
+                                                <Setter Property="FontStyle" Value="Italic"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+
+                            <!-- Przyciski -->
+                            <StackPanel Grid.Column="2"
+                                        Orientation="Horizontal"
+                                        VerticalAlignment="Center">
+
+                                <Button Content="Przypisz"
+                                        Width="90"
+                                        Margin="5,0"
+                                        Padding="10,6"
+                                        Command="{Binding DataContext.AssignRecipeCommand, 
+                                                  RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        CommandParameter="{Binding Key}"
+                                        Background="#2ecc71"
+                                        Foreground="White"
+                                        BorderThickness="0"
+                                        Cursor="Hand"/>
+
+                                <Button Content="Wyczyść"
+                                        Width="90"
+                                        Margin="5,0"
+                                        Padding="10,6"
+                                        Command="{Binding DataContext.ClearDayCommand, 
+                                                  RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                        CommandParameter="{Binding Key}"
+                                        Background="#e74c3c"
+                                        Foreground="White"
+                                        BorderThickness="0"
+                                        Cursor="Hand"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>

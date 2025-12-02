@@ -1,0 +1,12 @@
+﻿
+<Window>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Background="#2c3e50" Height="50">
+            <Button Content="Przepisy" Command="{Binding ShowRecipesCommand}" Margin="10"/>
+            <Button Content="Planer tygodnia" Command="{Binding ShowPlannerCommand}" Margin="10"/>
+            <Button Content="Lista zakupów" Command="{Binding ShowShoppingListCommand}" Margin="10"/>
+        </StackPanel>
+
+        <ContentControl Content="{Binding CurrentView}" DockPanel.Dock="Top"/>
+    </DockPanel>
+</Window>
